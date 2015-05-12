@@ -106,6 +106,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\themes\simple\admin.css" />
+    <Content Include="Content\themes\simple\images\arrow.png" />
+    <Content Include="Content\themes\simple\images\back.png" />
+    <Content Include="Content\themes\simple\images\bullet.png" />
+    <Content Include="Content\themes\simple\images\graphic.png" />
+    <Content Include="Content\themes\simple\images\link.png" />
+    <Content Include="Content\themes\simple\images\logo.jpg" />
+    <Content Include="Content\themes\simple\images\logo.png" />
+    <Content Include="Content\themes\simple\images\search.png" />
+    <Content Include="Content\themes\simple\images\tabs.png" />
+    <Content Include="Content\themes\simple\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -122,6 +133,8 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
