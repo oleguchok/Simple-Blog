@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 
+    <!-- Scripts -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script src="@Url.Content("~/Scripts/app.js")"></script>
+
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css"
           href="@Url.Content("~/Content/themes/simple/style.css")" />
@@ -37,6 +41,7 @@
 
         <!-- Site Content -->
         <div id="site_content">
+            @Html.Partial("_Search")
             @RenderBody()
         </div>
 
