@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace JustBlog.Core.Repository
 {
-    class BlogRepository : IBlogRepository
+    public class BlogRepository : IBlogRepository
     {
         // NHibernate object
         private readonly ISession _session;
