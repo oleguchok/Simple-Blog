@@ -21,5 +21,6 @@ namespace JustBlog.Core.Repository
         int TotalPostsForSearch(string search);
         Post Post(int year, int month, string titleSlug);
         IList<Category> Categories();
+        IList<Tag> Tags();
     }
 }
