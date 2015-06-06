@@ -1,21 +1,21 @@
 ﻿@using JustBlog.Core.Objects
 @using JustBlog.Helpers
-@model IList<Category>
+@model IList<Post>
 
 <div class="sidebar">
-    <h3>Categories</h3>
+    <h3>Latest Posts</h3>
 
     @if (Model.Count > 0)
     {
         <ul>
-            @foreach (var category in Model)
+            @foreach (var post in Model)
             {
-                <li>@Html.CategoryLink(category)</li>
+                <li>@Html.PostLink(post)</li>
             }
         </ul>
     }
     else
     {
-        <p>No categories found!</p>
+        <p>No posts found!</p>
     }
 </div>
