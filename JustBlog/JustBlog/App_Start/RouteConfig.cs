@@ -30,6 +30,12 @@ namespace JustBlog
                 "Tag/{tag}",
                 new { controller = "Blog", action = "Tag" }
             );
+
+            routes.MapRoute(
+                "Post",
+                "Archive/{year}/{month}/{title}",
+                new { controller = "Blog", action = "Post" }
+            );
         }
     }
 }
