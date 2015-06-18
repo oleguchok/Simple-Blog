@@ -1,4 +1,5 @@
 ﻿using JustBlog.Controllers;
+using JustBlog.Models;
 using JustBlog.Providers;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -55,6 +56,62 @@ namespace JustBlog.Tests
             //assert
             Assert.IsInstanceOf<ViewResult>(actual);
             Assert.AreEqual("/", ((ViewResult)actual).ViewBag.ReturnUrl);
+        }
+
+        [Test]
+        public void Login_Post_Model_Invalid_Test()
+        {
+            //arrange
+            var model = new LoginModel();
+            _adminController.ModelState.AddModelError("UserName", "UserName is required");
+
+            //act
+            var actual = _adminController.Login(model, "/");
+
+            //assert
+            Assert.IsInstanceOf<ViewResult>(actual);
+        }
+
+        [Test]
+        public void Login_Post_User_Invalid_Test()
+        {
+            //arrange
+            var model = new LoginModel()
+            {
+                UserName = "invalidname",
+                Password = "invalidpassword"
+            };
+            _authProvider.Stub(s => s.Login(model.UserName, model.Password))
+                         .Return(false);
+
+            //act
+            var actual = _adminController.Login(model, "/");
+
+            //assert
+            Assert.IsInstanceOf<ViewResult>(actual);
+            var modelStateErrors = _adminController.ModelState[""].Errors;
+            Assert.IsTrue(modelStateErrors.Count > 0);
+            Assert.AreEqual("The user name or password provided is incorrect.",
+                modelStateErrors[0].ErrorMessage);
+        }
+
+        [Test]
+        public void Login_Post_User_Valid_Test()
+        {
+            //arrange
+            var model = new LoginModel()
+            {
+                UserName = "validuser",
+                Password = "validpassword"
+            };
+            _authProvider.Stub(s => s.Login(model.UserName, model.Password)).Return(true);
+
+            //act
+            var actual = _adminController.Login(model, "/");
+
+            //assert
+            Assert.IsInstanceOf<RedirectResult>(actual);
+            Assert.AreEqual("/", ((RedirectResult)actual).Url);
         }
     }
 }
