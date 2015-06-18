@@ -26,6 +26,18 @@ namespace JustBlog
             );
 
             routes.MapRoute(
+                "Manage",
+                "Manage",
+                new { controller = "Admin", action = "Manage" }
+            );
+
+            routes.MapRoute(
+                "AdminAction",
+                "Admin/{action}",
+                new { controller = "Admin", action = "Login" }
+            );
+
+            routes.MapRoute(
                 "Default",
                 "{action}/{id}",
                 new { controller = "Blog", action = "Posts", id = UrlParameter.Optional }
