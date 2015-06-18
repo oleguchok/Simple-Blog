@@ -1,5 +1,7 @@
-﻿using JustBlog.Models;
+﻿using JustBlog.Core.Repository;
+using JustBlog.Models;
 using JustBlog.Providers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +15,12 @@ namespace JustBlog.Controllers
     public class AdminController : Controller
     {
         readonly IAuthProvider _authProvider;
+        readonly IBlogRepository _blogRepository;
 
-        public AdminController(IAuthProvider authProvider)
+        public AdminController(IAuthProvider authProvider, IBlogRepository blogRepository = null)
         {
             _authProvider = authProvider;
+            _blogRepository = blogRepository;
         }
 
         [AllowAnonymous]
@@ -62,6 +66,22 @@ namespace JustBlog.Controllers
             _authProvider.Logout();
 
             return RedirectToAction("Login", "Admin");
+        }
+
+        public ContentResult Posts(JqInViewModel jqParams)
+        {
+            var posts = _blogRepository.Posts(jqParams.page - 1, jqParams.rows,
+                jqParams.sidx, jqParams.sord == "asc");
+
+            var totalPosts = _blogRepository.TotalPosts(false);
+
+            return Content(JsonConvert.SerializeObject(new
+                {
+                    page = jqParams.page,
+                    records = totalPosts,
+                    rows = posts,
+                    total = Math.Ceiling(Convert.ToDouble(totalPosts) / jqParams.rows)
+                }, new CustomDateTimeConverter()), "application/json");
         }
     }
 }
