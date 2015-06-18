@@ -42,5 +42,19 @@ namespace JustBlog.Tests
             Assert.IsInstanceOf<RedirectResult>(actual);
             Assert.AreEqual("/admin/manage", ((RedirectResult)actual).Url);
         }
+
+        [Test]
+        public void Login_IsLoggedIn_False_Test()
+        {
+            //arrange
+            _authProvider.Stub(s => s.IsLoggedIn).Return(false);
+
+            //act
+            var actual = _adminController.Login("/");
+
+            //assert
+            Assert.IsInstanceOf<ViewResult>(actual);
+            Assert.AreEqual("/", ((ViewResult)actual).ViewBag.ReturnUrl);
+        }
     }
 }
